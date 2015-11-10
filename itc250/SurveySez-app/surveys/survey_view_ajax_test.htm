@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ajaxHeadline1.htm</title>
+    
+<script type="text/javascript">
+var xmlHttp;
+
+function createXMLHttpRequest() {
+    if (window.ActiveXObject) {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } 
+    else if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    }
+}
+    
+function startRequest() {
+    createXMLHttpRequest();
+    xmlHttp.onreadystatechange = handleStateChange;
+    url = "survey_view_ajax.php?id=1" + "&ts=" + new Date().getTime();
+    xmlHttp.open("GET",url, true);
+    xmlHttp.send(null);
+}
+    
+function handleStateChange() {
+    if(xmlHttp.readyState == 4) {
+        if(xmlHttp.status == 200) {
+            //alert(xmlHttp.responseText);
+            document.getElementById("output").innerHTML = xmlHttp.responseText;
+        }
+    }
+}
+</script>
+</head>
+
+<body>
+<h1 align="center">survey view ajax test</h1>
+<p>Click to view a survey</p>
+    <form action="#">
+        <input type="button" value="Click To view a Survey" onclick="startRequest();"/>
+    </form>
+<div id="output">Survey data goes here</div>    
+    
+</body>
+</html>
